@@ -80,25 +80,99 @@ nnoremap <Down>  :echoe "Use j"<CR>
 " inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
 " Tabstop config
-set tabstop=4
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 
-" CtrlP configuration
 
 " ----------- Plugin configuration ------------ "
 call plug#begin()
 
+" ack 
+Plug 'mileszs/ack.vim'
+
+" focus on working lines
+Plug 'junegunn/limelight.vim'
+let g:limelight_conceal_ctermfg = 'DarkGrey'
+    
+" ycm
+Plug 'ycm-core/YouCompleteMe'
+let g:ycm_filetype_blacklist = { 'cpp': 1 }
+
+" markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+let g:mkdp_markdown_css='/home/samillynn/node_modules/github-markdown-css/github-markdown.css'
+
+
+" ipython-vim
+" Plug 'ivanov/vim-ipython'
+
+Plug 'bfredl/nvim-ipy'
+let g:nvim_ipy_perform_mappings = 0
+map <F5> <Plug>(IPy-RunAll)
+map <F6> <Plug>(IPy-Run)
+imap <F5> <ESC><F5>
+imap <F6> <ESC><F6>
+
+
+" highlight the current line
+Plug 'miyakogi/conoline.vim'
+let g:conoline_auto_enable = 1
+let g:conoline_color_normal_dark = 'guibg=#333333 guifg=#dddddd'
+let g:conoline_color_insert_dark = 'guibg=black guifg=white'
+
+"supertab
+" Plug 'ervandew/supertab'
+" let g:SuperTabCompletionType = "context"
+
+" powerline
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+
+" git
+Plug 'tpope/vim-fugitive'
+
+" syntax check
+Plug 'scrooloose/syntastic'
+let g:syntastic_cpp_include_dirs = ['/usr/local/include','/usr/include', '/usr/lib/llvm-10/include']
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_python_python_exec = '/bin/python3.8'
+
+" tagbar
+Plug 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
 " ctrlp
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" vim-auto-vim 
+" vim-auto-save
 Plug '907th/vim-auto-save' 
+let g:auto_save = 1
 
 " easymotion
 Plug 'easymotion/vim-easymotion'
+map <Leader>L <Plug>(easymotion-bd-jk)
+map ; <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
 map <Leader> <Plug>(easymotion-prefix)
+nmap <Leader>s <Plug>(easymotion-bd-s)
+nmap e <Plug>(easymotion-bd-e)
+vmap e <Plug>(easymotion-bd-e)
+nmap w <Plug>(easymotion-bd-w)
+vmap w <Plug>(easymotion-bd-w)
+nmap f <Plug>(easymotion-bd-f)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+nmap <Leader>s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+
+" vim-surround
+Plug 'tpope/vim-surround'
 
 " nerdtree
 Plug 'preservim/nerdtree'
@@ -106,11 +180,54 @@ map <A-1> :NERDTreeToggle<CR>
 
 " jedi-vim
 Plug 'davidhalter/jedi-vim'
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 1
+let g:jedi#show_call_signatures = 0
+autocmd FileType python setlocal completeopt-=preview
+let g:jedi#completions_command = "<C-Space>"
+"let g:jedi#completions_enabled = 0
+
+" deoplete.nvim
+" Plug 'Shougo/deoplete.nvim'
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#enable()
+
+" C/C++ completions
+" Plug 'xavierd/clang_complete'
+" let g:clang_library_path = "/usr/lib/llvm-10/lib"
 
 call plug#end()
 
 
+" ----------- dein -----------------
+
+if &compatible
+  set nocompatible
+endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+
+  " deoplete.nvim
+  call dein#add('Shougo/deoplete.nvim')
+  let g:deoplete#enable_at_startup = 1
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+
+
 " ----------- key binds ---------------"
+
+" normal mode
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
@@ -120,15 +237,46 @@ nnoremap <A-h> <C-w>H
 nnoremap <A-l> <C-w>L
 nnoremap <A-j> <C-w>J
 nnoremap <A-k> <C-w>K
-nnoremap <C-a> Go
-nnoremap <C-i> ggO
-nnoremap <A-a> ea
-nnoremap <A-i> bi
-nnoremap <C-0> 0cw
-nnoremap <Tab> i<C-t><Esc>
+nnoremap <A-a> G<S-A>
+nnoremap <A-i> ggO
+nnoremap <C-A> ea
+nnoremap <C-o> bi
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+nnoremap <C-\> gt
+nnoremap ' gt
+nnoremap " gT
+
+" insert mode
 imap <C-a> <ESC><C-a>
-imap <C-i> <ESC><C-i>
+imap <C-o> <ESC><C-i>
 imap <A-a> <ESC><A-a>
 imap <A-i> <ESC><A-i>
-imap <C-0> <ESC><C-0>
-inoremap <Tab> <C-t>
+imap <C-\> <ESC><C-\>
+
+" visual mode
+vnoremap <Tab> >>
+vnoremap <S-Tab> <<
+
+" keep cursor always in middle
+set scrolloff=13
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+
+" no backup file
+set nobackup
+
+
+" copy to clipboard
+vnoremap <C-S-C> "+y
+
+" select-all
+imap <C-S-A> <ESC><C-S-A>
+
+" no highlight search
+set nohlsearch
