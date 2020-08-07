@@ -82,13 +82,19 @@ nnoremap <Down>  :echoe "Use j"<CR>
 " Tabstop config
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
-
+" shortcut for :tabnew ~/.nvimrc
+noremap <C-S> <ESC>:tabnew ~/.nvimrc<CR>
+" noremap <C-S-S> <ESC>:so ~/.nvimrc<CR>
 
 " ----------- Plugin configuration ------------ "
 call plug#begin()
 
+
 " ack 
 Plug 'mileszs/ack.vim'
+
+" auto pair parenthesis
+Plug 'jiangmiao/auto-pairs'
 
 " focus on working lines
 Plug 'junegunn/limelight.vim'
@@ -96,7 +102,20 @@ let g:limelight_conceal_ctermfg = 'DarkGrey'
     
 " ycm
 Plug 'ycm-core/YouCompleteMe'
-let g:ycm_filetype_blacklist = { 'cpp': 1 }
+" no preview pop-up window
+set completeopt-=preview
+let g:ycm_show_diagnostics_ui = 0
+
+
+"supertab
+" Plug 'ervandew/supertab'
+" let g:SuperTabDefaultCompletionType    = '<C-N>'
+" let g:SuperTabCrMapping                = 0
+let g:UltiSnipsExpandTrigger           = '<A-Space>'
+let g:UltiSnipsJumpForwardTrigger      = '<C-J>'
+let g:UltiSnipsJumpBackwardTrigger     = '<C-K>'
+
+" let g:SuperTabCompletionType = "context"
 
 " markdown
 Plug 'godlygeek/tabular'
@@ -115,16 +134,14 @@ map <F6> <Plug>(IPy-Run)
 imap <F5> <ESC><F5>
 imap <F6> <ESC><F6>
 
+"js
+Plug 'pangloss/vim-javascript'
 
 " highlight the current line
 Plug 'miyakogi/conoline.vim'
 let g:conoline_auto_enable = 1
 let g:conoline_color_normal_dark = 'guibg=#333333 guifg=#dddddd'
 let g:conoline_color_insert_dark = 'guibg=black guifg=white'
-
-"supertab
-" Plug 'ervandew/supertab'
-" let g:SuperTabCompletionType = "context"
 
 " powerline
 Plug 'vim-airline/vim-airline'
@@ -135,8 +152,10 @@ Plug 'tpope/vim-fugitive'
 
 " syntax check
 Plug 'scrooloose/syntastic'
-let g:syntastic_cpp_include_dirs = ['/usr/local/include','/usr/include', '/usr/lib/llvm-10/include']
-let g:syntastic_cpp_check_header = 1
+let g:syntastic_mode_map = {
+        \"mode": "passive" }
+" let g:syntastic_cpp_include_dirs = ['/usr/local/include','/usr/include', '/usr/lib/llvm-10/include']
+" let g:syntastic_cpp_check_header = 1
 let g:syntastic_python_python_exec = '/bin/python3.8'
 
 " tagbar
@@ -152,24 +171,37 @@ let g:ctrlp_cmd = 'CtrlP'
 Plug '907th/vim-auto-save' 
 let g:auto_save = 1
 
+" latex
+Plug 'lervag/vimtex'
+let g:vimtex_complete_enabled = 1
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
 " easymotion
 Plug 'easymotion/vim-easymotion'
 map <Leader>L <Plug>(easymotion-bd-jk)
-map ; <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 map <Leader> <Plug>(easymotion-prefix)
 nmap <Leader>s <Plug>(easymotion-bd-s)
-nmap e <Plug>(easymotion-bd-e)
-vmap e <Plug>(easymotion-bd-e)
-nmap w <Plug>(easymotion-bd-w)
-vmap w <Plug>(easymotion-bd-w)
-nmap f <Plug>(easymotion-bd-f)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+nmap <Leader>e <Plug>(easymotion-bd-e)
+nmap <S-E> <Plug>(easymotion-bd-e)s
+vmap <Leader>e <Plug>(easymotion-bd-e)
+nmap <Leader>w <Plug>(easymotion-bd-w)
+vmap <Leader>w <Plug>(easymotion-bd-w)
+nmap <Plug>f <Plug>(easymotion-bd-f)
+" map  / <Plug>(easymotion-sn)
+" omap / <Plug>(easymotion-tn)
+" map  n <Plug>(easymotion-next)
+" map  N <Plug>(easymotion-prev)
 nmap <Leader>s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+" nmap t <Plug>(easymotion-bd-tl)
+
+" repeat.vim
+Plug 'tpope/vim-repeat'
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+
+" drucala theme
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " vim-surround
 Plug 'tpope/vim-surround'
@@ -179,16 +211,16 @@ Plug 'preservim/nerdtree'
 map <A-1> :NERDTreeToggle<CR>
 
 " jedi-vim
-Plug 'davidhalter/jedi-vim'
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 1
-let g:jedi#show_call_signatures = 0
-autocmd FileType python setlocal completeopt-=preview
-let g:jedi#completions_command = "<C-Space>"
+" Plug 'davidhalter/jedi-vim'
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#popup_select_first = 1
+" let g:jedi#show_call_signatures = 0
+" autocmd FileType python setlocal completeopt-=preview
+" let g:jedi#completions_command = "<C-Space>"
 "let g:jedi#completions_enabled = 0
 
 " deoplete.nvim
-" Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " let g:deoplete#enable_at_startup = 1
 " call deoplete#enable()
 
@@ -196,38 +228,37 @@ let g:jedi#completions_command = "<C-Space>"
 " Plug 'xavierd/clang_complete'
 " let g:clang_library_path = "/usr/lib/llvm-10/lib"
 
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsUsePythonVersion = 3
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'garbas/vim-snipmate'
+" 
+" Plug 'honza/vim-snippets'
+
+
 call plug#end()
 
-
-" ----------- dein -----------------
-
-if &compatible
-  set nocompatible
-endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-
-  " deoplete.nvim
-  call dein#add('Shougo/deoplete.nvim')
-  let g:deoplete#enable_at_startup = 1
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-filetype plugin indent on
-syntax enable
+colorscheme dracula
 
 
-" ----------- key binds ---------------"
 
 " normal mode
+nnoremap ; :
+vnoremap ; :
+" nnoremap : <ESC>:tabnew 
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
@@ -249,9 +280,11 @@ nnoremap " gT
 
 " insert mode
 imap <C-a> <ESC><C-a>
-imap <C-o> <ESC><C-i>
+imap <C-o> <ESC><C-o>
 imap <A-a> <ESC><A-a>
 imap <A-i> <ESC><A-i>
+imap <A-S-A> <ESC><S-A>
+imap <A-S-I> <ESC><S-I>
 imap <C-\> <ESC><C-\>
 
 " visual mode
@@ -280,3 +313,8 @@ imap <C-S-A> <ESC><C-S-A>
 
 " no highlight search
 set nohlsearch
+
+" fix filetype 
+au BufRead .functions set filetype=sh
+au BufRead .aliases set filetype=sh
+

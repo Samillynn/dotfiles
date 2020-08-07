@@ -1,0 +1,23 @@
+mcd(){
+   mkdir -p "$1"
+   cd "$1"
+}
+
+# c(){
+#     backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
+#         test -f "$backfile" && 
+#         (cmp --silent "$1" "$backfile" || (cp "$1" "$backfile" && c++ "$1" -o "$backfile.out")) ||
+#     (cp "$1" "$backfile" && c++ "$1" -o "$backfile.out") &&
+#     "$backfile.out" ${@:2}
+# }
+
+c() {
+     backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
+     c++ "$1" -o "$backfile.out"
+     "$backfile.out" ${@:2}
+}
+
+a() {
+     backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
+     "$backfile.out" ${@:2}
+}

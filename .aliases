@@ -1,0 +1,15 @@
+alias n=nvim
+alias p=python3
+alias ipy=ipython
+alias ipython="python3 -m IPython"
+
+alias ai="sudo apt install"
+alias au="sudo apt remove"
+alias pi="python3 -m pip install"
+alias pu="python3 -m pip uninstall"
+
+alias cd.="cd .."
+alias sudo='sudo '
+alias s='sudo '
+alias wi=which
+
