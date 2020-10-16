@@ -11,9 +11,9 @@ mcd(){
 #     "$backfile.out" ${@:2}
 # }
 
-c() {
+x() {
      backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
-     c++ "$1" -o "$backfile.out"
+     c++ -std=c++17 "$1" -o "$backfile.out"
      "$backfile.out" ${@:2}
 }
 
