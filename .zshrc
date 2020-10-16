@@ -102,12 +102,12 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-if [[ -f ~/.aliases ]]; then
-	. ~/.aliases
+if [[ -f $HOME/.aliases ]]; then
+	. $HOME/.aliases
 fi
 
-if [[ -f ~/.functions ]]; then
-	. ~/.functions
+if [[ -f $HOME/.functions ]]; then
+	. $HOME/.functions
 fi
 
 
