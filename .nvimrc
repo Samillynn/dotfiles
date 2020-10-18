@@ -80,7 +80,7 @@ nnoremap <Down>  :echoe "Use j"<CR>
 " inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
 " Tabstop config
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 
 " shortcut for :tabnew ~/.nvimrc
 noremap <C-S> <ESC>:tabnew ~/.nvimrc<CR>
@@ -175,6 +175,7 @@ let g:auto_save = 1
 Plug 'lervag/vimtex'
 let g:vimtex_complete_enabled = 1
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+let g:tex_flavor = 'latex'
 
 " easymotion
 Plug 'easymotion/vim-easymotion'

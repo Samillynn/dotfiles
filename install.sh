@@ -19,8 +19,10 @@ git config --global user.email "2837931428@qq.com"
 git config --global user.name "Samillynn"
 git config --global core.editor "vim"
 
+ai nodejs npm
 ai curl
 ai tmux
+
 ai python3-pip
 pi IPython
 
@@ -28,6 +30,11 @@ pi IPython
 # install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# install YCM
+ai build-essential cmake vim python3-dev
+cd ~/.config/nvim/plugged/YouCompleteMe
+p install.py --clangd-completer --ts-completer
 
 # install oh-my-zsh and change .zshrc
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
