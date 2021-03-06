@@ -11,13 +11,35 @@ mcd(){
 #     "$backfile.out" ${@:2}
 # }
 
+cpl() {
+     backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
+     c++ -std=c++17 "$1" -o "$backfile.out"
+}
+
 x() {
      backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
      c++ -std=c++17 "$1" -o "$backfile.out" &&
      "$backfile.out" ${@:2}
 }
 
+xd() {
+     backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
+     c++ -std=c++17 -g "$1" -o "$backfile.gdb.out" &&
+     gdb "$backfile.gdb.out" ${@:2}
+}
+
 a() {
      backfile="$HOME/.cpp/$(pwd|sed -e 's/\//%/g')%$1" 
      "$backfile.out" ${@:2}
+}
+
+con() {
+  if [[ ! -f "$1.cpp" ]]; then
+    cat "$HOME/.cpp/contest_template.cpp" > "$1.cpp"
+  fi
+  code "$1.cpp"
+}
+
+cot() {
+  . ~/.cpp/contest_tester.sh "$@"
 }

@@ -7,10 +7,14 @@ alias ai="sudo apt install"
 alias au="sudo apt remove"
 alias pi="python3 -m pip install"
 alias pu="python3 -m pip uninstall"
-alias jm="python3 manager.p "
+alias jm="python3 manage.py "
 
 alias cd.="cd .."
 alias sudo='sudo '
 alias s='sudo '
 alias wi=which
 
+alias acv="source bin/activate"
+
+alias cpeditor="~/Downloads/cpeditor-6.7.2-linux-x86_64.AppImage &"
+alias ma="matlab -batch "

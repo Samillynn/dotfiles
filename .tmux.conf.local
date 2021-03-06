@@ -183,7 +183,7 @@ tmux_conf_theme_right_separator_sub='|'
 
 #tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
 
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} '
 
 
 
@@ -294,8 +294,8 @@ set -g mouse on
 set -gu prefix2
 unbind C-a
 unbind C-b
-set -g prefix C-e
-bind C-e send-prefix
+set -g prefix C-Space
+bind C-M send-prefix
 
 # move status line to top
 # set -g status-position top
@@ -305,31 +305,6 @@ bind C-e send-prefix
 
 # ---- samill's customizations ------------------------------------------------
 
-# raise command prompt directly with Alt-;
-bind -n M-\; command-prompt
-
 # don't rename my windows
 set -g allow-rename off
-
-# pane keybinds
-bind -n M-Enter select-pane -t :.+
-bind -n M-S-Enter select-pane -t:.-
-bind -n M-5 split-window -h
-bind -n M-6 split-window
-
-# window keybinds
-bind C-N new-window
-bind -n M-"'" next-window
-bind -n M-'"' previous-window
-bind -n M-\\ next-window
-bind -n M-S-\\ previous-window
-bind -n M-, command-prompt -I "rename-window "
-
-# session keybinds
-bind -n M-0 switch-client -n
-bind -n M-9 switch-client -p
-bind -n M-4 command-prompt -I "rename-session "
-
-
-
-
+# bind v 
