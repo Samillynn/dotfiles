@@ -46,8 +46,9 @@ let g:airline_powerline_fonts = 1
 Plug 'tpope/vim-fugitive'
 
 " vim-auto-save
-" Plug '907th/vim-auto-save' 
-" let g:auto_save = 1
+Plug '907th/vim-auto-save' 
+let g:auto_save = 1
+let g:auto_save_silent = 1
 
 " drucala theme
 " Plug 'dracula/vim', { 'as': 'dracula' }
@@ -62,11 +63,7 @@ Plug 'searleser97/cpbooster.vim'
 Plug 'lervag/vimtex'
 
 " auto-pair
-Plug 'tmsvg/pear-tree'
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1
-
+"
 call plug#end()
 
 " colorscheme dracula
