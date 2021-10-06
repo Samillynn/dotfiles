@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "9/17/2021, 7:24:42 PM",
-	"time": 1631877882377,
+	"@time": "06/10/2021, 10:21:13 pm",
+	"time": 1633530073434,
 	"environment": {
 		"extension": "1.92.4",
-		"platform": "win",
-		"chrome": 93
+		"platform": "linux",
+		"firefox": 92
 	},
 	"keyMappings": [
 		"#! no-check",
